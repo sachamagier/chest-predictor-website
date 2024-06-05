@@ -1,5 +1,5 @@
-Name: f
-Age: 22
-Symptoms: d
+Name: Sacha
+Age: 11
+Symptoms: stress
 Smoking: True
 Country: Africa

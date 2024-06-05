@@ -3,14 +3,9 @@ from PIL import Image
 import os
 from dotenv import load_dotenv
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
-import av
-
-
+import requests
 # Load environment variables
 load_dotenv()
-url = os.getenv('API_URL')
-
 # Set background image
 def set_bg_image(image_path):
     st.markdown(
@@ -27,6 +22,7 @@ def set_bg_image(image_path):
         unsafe_allow_html=True
     )
 
+
 # Set background color
 def set_bg_color():
     st.markdown(
@@ -39,18 +35,15 @@ def set_bg_color():
         """,
         unsafe_allow_html=True
     )
-
 # Sidebar Navigation
 pages = ['Home', 'About', 'The Scanner', 'Your patient folder']
 selection = st.sidebar.radio('Go to', pages)
-
 #implement background color
 set_bg_color()
-
 # The elements inside the page selected in the sidebar
 if selection == 'Home':
     st.title('Home')
-    st.markdown('### Welcome to the Chest X-Ray Analyser! 🏥')
+    st.markdown('### Welcome to the Chest X-Ray Analyser! :hospital:')
     # Displaying the logo
     image = Image.open('/Users/sachamagier/Desktop/X-Ray ANALYSER.png')
     st.image(image,use_column_width=True)
@@ -75,24 +68,36 @@ elif selection == 'About':
     with col4:
         st.markdown('**Sacha Magier**')
         st.image('/Users/sachamagier/Desktop/download-2.jpg', use_column_width=True)
-
+url = os.getenv('SERVICE_URL')
 
 
 if selection == 'The Scanner':
     st.title('The Scanner')
-    img_file_buffer = st.file_uploader("### Upload your chest X-ray and let our model Analyse it and showed you what he found 🦠", type=["jpg", "jpeg", "png"])
+    img_file_buffer = st.file_uploader("### Upload your chest X-ray and let our model Analyse it and showed you what he found :microbe:", type=["jpg", "jpeg", "png"])
+    if img_file_buffer is not None:
+        col1,col2 = st.columns(2)
+        with col1:
+            st.image(Image.open(img_file_buffer),caption=" here's the image you uploaded")
+        with col2:
+            with st.spinner("Wait for it..."):
+                img_bytes = img_file_buffer.getvalue()
+                res = requests.post(url,files={'img': img_bytes})
+                if res.status_code == 200:
+                    prediction = res.json().get('prediction')
+                    st.write(f"### The model found {prediction}")
+                    st.markdown(res.content)
+                else:
+                    st.markdown("**Oops**, something went wrong Please try again.")
+                print(res.status_code,res.content)
 
-    # User Information in the 'Our Scanner' page
     st.sidebar.title('Your Information')
     name = st.sidebar.text_input('Name')
     age = st.sidebar.number_input('Age', min_value=0, max_value=100)
     smoking = st.sidebar.checkbox('Do you smoke?')
     symptoms = st.sidebar.text_area('Symptoms')
     country = st.sidebar.selectbox('continent', ['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'])
-
     if st.sidebar.button('Submit'):
         st.sidebar.success('Your information submitted successfully!')
-
         # Save User information in a file
         with open('user_info.txt', 'w') as f:
             f.write(f'Name: {name}\n')
@@ -100,6 +105,8 @@ if selection == 'The Scanner':
             f.write(f'Symptoms: {symptoms}\n')
             f.write(f'Smoking: {smoking}\n')
             f.write(f'Country: {country}\n')
+
+
 
 if selection == 'Your patient folder':
     st.title('Your patient folder')
@@ -110,4 +117,3 @@ if selection == 'Your patient folder':
     # create a pdf file with the user information his profile picture and the result of the analysis
     if st.button('Download your patient folder'):
         pass
-    # create a pdf file with the user information
