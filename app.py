@@ -59,7 +59,7 @@ if selection == 'Home':
     st.title('Home')
     st.markdown('### Welcome to X-RAI, your X-Ray second opinion by AI! 🏥')
     # Displaying the logo
-    image = Image.open('/Users/sachamagier/Desktop/Capture d’écran, le 2024-06-13 à 11.32.21.png')
+    image = Image.open('Website-Images/Logo.png')
     st.image(image, use_column_width=True)
 
 elif selection == 'About':
