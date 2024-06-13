@@ -20,6 +20,7 @@ def set_bg_image(image_path):
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
+
         }}
         </style>
         """,
@@ -33,10 +34,11 @@ def set_bg_color():
         """
         <style>
         .stApp {
-            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 50%, #ff66b3 100%);
+            background: linear-gradient(135deg, #FFFFFF 0%, #F0F0F0 100%);
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            font-color: white;
         }
         </style>
         """,
@@ -61,38 +63,38 @@ def analyze_image(image):
         return None
 
 # Sidebar Navigation
-pages = ['Home', 'About', 'The Scanner', 'Your patient folder', 'Disease Information']
+pages = ['The Scanner', 'Your patient folder', 'Disease Information']
 selection = st.sidebar.radio('Go to', pages)
 
 # Implement background color
 set_bg_color()
 # The elements inside the page selected in the sidebar
-if selection == 'Home':
-    st.title('Home')
-    st.markdown('### Welcome to X-RAI, your X-Ray second opinion by AI! 🏥')
+# if selection == 'Home':
+#     st.title('Home')
+#     st.markdown('### Welcome to X-RAI, your X-Ray second opinion by AI! 🏥')
     # Displaying the logo
     #image = Image.open('Website-Images/Logo.png')
     #st.image(image, use_column_width=True)
 
-elif selection == 'About':
-    st.title('About')
-    st.markdown('### Who we are ?')
-    st.markdown('We are a team of data scientists who have developed a model that can detect 14 different chest diseases  by analyzing X-ray images.')
-    # Create a subsection with the name and pictures of the team members all in the same row
-    st.markdown('### Our Team')
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.markdown('**Arno Debelle**')
-        #st.image('', use_column_width=True)
-    with col2:
-        st.markdown('**Rick Van mol**')
-        #st.image('/Users/sachamagier/Desktop/istockphoto-1347495868-612x612.jpg', use_column_width=True)
-    with col3:
-        st.markdown('**Alexandre Perron**')
-        #st.image('/Users/sachamagier/Desktop/download.jpg', use_column_width=True)
-    with col4:
-        st.markdown('**Sacha Magier**')
-        #st.image('/Users/sachamagier/Desktop/download-2.jpg', use_column_width=True)
+# elif selection == 'About':
+#     st.title('About')
+#     st.markdown('### Who we are ?')
+#     st.markdown('We are a team of data scientists who have developed a model that can detect 14 different chest diseases  by analyzing X-ray images.')
+#     # Create a subsection with the name and pictures of the team members all in the same row
+#     st.markdown('### Our Team')
+#     col1, col2, col3, col4 = st.columns(4)
+#     with col1:
+#         st.markdown('**Arno Debelle**')
+#         #st.image('', use_column_width=True)
+#     with col2:
+#         st.markdown('**Rick Van mol**')
+#         #st.image('/Users/sachamagier/Desktop/istockphoto-1347495868-612x612.jpg', use_column_width=True)
+#     with col3:
+#         st.markdown('**Alexandre Perron**')
+#         #st.image('/Users/sachamagier/Desktop/download.jpg', use_column_width=True)
+#     with col4:
+#         st.markdown('**Sacha Magier**')
+#         #st.image('/Users/sachamagier/Desktop/download-2.jpg', use_column_width=True)
 
 # Function to create a PDF
 
@@ -169,8 +171,16 @@ if selection == 'The Scanner':
             #display the results of the analysis
             result = analyze_image(img_bytes)
 
-            # Optionally, display the analysis results on the Scanner page
-            st.write(f"Analysis results: {result}")
+            # Optionally, display the analysis results on the Scanner page in bigger font
+
+            #make it bigger size and bold
+            st.markdown(f'<p style=“font-size: 60px;“>Analysis results:</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style=“font-size: 18px;“>{result}</p>', unsafe_allow_html=True)
+
+
+
+
+            #st.write(f"Analysis results: {result}")
 
         # if st.button("Is it fake?"):
         #         res = requests.post(url, files={'img': image})
