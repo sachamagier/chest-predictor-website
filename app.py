@@ -59,8 +59,8 @@ if selection == 'Home':
     st.title('Home')
     st.markdown('### Welcome to X-RAI, your X-Ray second opinion by AI! 🏥')
     # Displaying the logo
-    image = Image.open('Website-Images/Logo.png')
-    st.image(image, use_column_width=True)
+    #image = Image.open('Website-Images/Logo.png')
+    #st.image(image, use_column_width=True)
 
 elif selection == 'About':
     st.title('About')
@@ -71,16 +71,16 @@ elif selection == 'About':
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown('**Arno Debelle**')
-        st.image('', use_column_width=True)
+        #st.image('', use_column_width=True)
     with col2:
         st.markdown('**Rick Van mol**')
-        st.image('/Users/sachamagier/Desktop/istockphoto-1347495868-612x612.jpg', use_column_width=True)
+        #st.image('/Users/sachamagier/Desktop/istockphoto-1347495868-612x612.jpg', use_column_width=True)
     with col3:
         st.markdown('**Alexandre Perron**')
-        st.image('/Users/sachamagier/Desktop/download.jpg', use_column_width=True)
+        #st.image('/Users/sachamagier/Desktop/download.jpg', use_column_width=True)
     with col4:
         st.markdown('**Sacha Magier**')
-        st.image('/Users/sachamagier/Desktop/download-2.jpg', use_column_width=True)
+        #st.image('/Users/sachamagier/Desktop/download-2.jpg', use_column_width=True)
 
 # Function to create a PDF
 
