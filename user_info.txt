@@ -1,5 +1,5 @@
-Name: f
+Name: sacha
 Age: 22
-Symptoms: d
 Smoking: True
-Country: Africa
+Symptoms: a lot of synptoms
+Country: Belgium
