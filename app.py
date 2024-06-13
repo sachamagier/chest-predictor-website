@@ -2,14 +2,28 @@ import streamlit as st
 from PIL import Image
 import os
 from dotenv import load_dotenv
-from fpdf import FPDF
-import io
+import streamlit as st
 import requests
-import datetime
 
 # Load environment variables
 load_dotenv()
 url = os.getenv('https://chestpredict-final-l5vxuce2ea-ew.a.run.app/docs#/default/receive_image_predictions_post')
+
+# Set background image
+def set_bg_image(image_path):
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{image_path}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 # Set background color
@@ -40,7 +54,6 @@ selection = st.sidebar.radio('Go to', pages)
 
 # Implement background color
 set_bg_color()
-
 # The elements inside the page selected in the sidebar
 if selection == 'Home':
     st.title('Home')
