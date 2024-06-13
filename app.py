@@ -7,7 +7,8 @@ import requests
 
 # Load environment variables
 load_dotenv()
-url = os.getenv('https://chestpredict-final-l5vxuce2ea-ew.a.run.app/docs#/default/receive_image_predictions_post')
+url = os.getenv('https://chestpredict-final-l5vxuce2ea-ew.a.run.app/predictions')
+#url = "https://chestpredict-final-l5vxuce2ea-ew.a.run.app/predictions"
 
 # Set background image
 def set_bg_image(image_path):
@@ -42,11 +43,22 @@ def set_bg_color():
         unsafe_allow_html=True
     )
 # Function to send the image to the FastAPI server and get the result
-def analyze_image(image_file):
-    files = {'file': image_file}
-    response = requests.post(url, files=files)
-    return response.json()
+# def analyze_image(image_file):
+#     files = {'img': image_file}
+#     response = requests.post(url, files=files)
+#     return response.json()
 
+def analyze_image(image):
+    url = "https://chestpredict-final-l5vxuce2ea-ew.a.run.app/predictions"
+    files = {"img": image}
+    try:
+        response = requests.post(url, files=files)
+        response.raise_for_status()  # Raises an error for bad responses
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        st.error(f"An error occurred: {e}")
+        st.error(f"Response content: {response.content}")
+        return None
 
 # Sidebar Navigation
 pages = ['Home', 'About', 'The Scanner', 'Your patient folder', 'Disease Information']
@@ -152,14 +164,17 @@ if selection == 'The Scanner':
     if img_file_buffer:
         image = Image.open(img_file_buffer)
         st.image(image, use_column_width=True)
+        img_bytes = img_file_buffer.getvalue()
         if st.button('Submit'):
             #display the results of the analysis
-            result = analyze_image(img_file_buffer)
-            st.write(result)
+            result = analyze_image(img_bytes)
 
             # Optionally, display the analysis results on the Scanner page
             st.write(f"Analysis results: {result}")
 
+        # if st.button("Is it fake?"):
+        #         res = requests.post(url, files={'img': image})
+        #         response = res.json()
 
         # Save the results to a file (if needed)
 
