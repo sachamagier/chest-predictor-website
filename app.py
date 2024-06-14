@@ -11,39 +11,35 @@ url = os.getenv('https://chestpredict-final-l5vxuce2ea-ew.a.run.app/predictions'
 #url = "https://chestpredict-final-l5vxuce2ea-ew.a.run.app/predictions"
 
 # Set background image
-def set_bg_image(image_path):
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("data:image/png;base64,{image_path}");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+# def set_bg_image(image_path):
+#     st.markdown(
+#         f"""
+#         <style>
+#         .stApp {{
+#             background-image: url("data:image/png;base64,{image_path}");
+#             background-size: cover;
+#             background-repeat: no-repeat;
+#             background-attachment: fixed;
 
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+#         }}
+#         </style>
+#         """,
+#         unsafe_allow_html=True
+#     )
 
 
-# Set background color
 def set_bg_color():
     st.markdown(
         """
         <style>
         .stApp {
-            background: linear-gradient(135deg, #FFFFFF 0%, #F0F0F0 100%);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            font-color: white;
+            background-color: white;  # Set background color to white
+            color: black;             # Set text color to black
         }
         </style>
-        """,
-        unsafe_allow_html=True
-    )
+        """, unsafe_allow_html=True)
+
+
 # Function to send the image to the FastAPI server and get the result
 # def analyze_image(image_file):
 #     files = {'img': image_file}
