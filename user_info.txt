@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 Name: sacha
-Age: 22
-=======
-Name: Sacha
-Age: 11
-Symptoms: stress
->>>>>>> 1c3ef8afa73c3bddaf63367076fe507b57498e09
+Age: 3
 Smoking: True
-Symptoms: a lot of synptoms
-Country: Belgium
+Symptoms: d
+Country: Afghanistan

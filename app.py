@@ -4,6 +4,11 @@ import os
 from dotenv import load_dotenv
 import streamlit as st
 import requests
+import datetime
+#import fpdf
+from fpdf import FPDF
+#import datetime
+
 
 # Load environment variables
 load_dotenv()
@@ -170,10 +175,8 @@ if selection == 'The Scanner':
             # Optionally, display the analysis results on the Scanner page in bigger font
 
             #make it bigger size and bold
-            st.markdown(f'<p style=“font-size: 60px;“>Analysis results:</p>', unsafe_allow_html=True)
-            st.markdown(f'<p style=“font-size: 18px;“>{result}</p>', unsafe_allow_html=True)
-
-
+            st.markdown(f'<p style="font-size: 35px;">Analysis results:</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 35px; font-weight: bold;">{result}</p>', unsafe_allow_html=True)
 
 
             #st.write(f"Analysis results: {result}")
@@ -223,9 +226,13 @@ if selection == 'Your patient folder':
         st.sidebar.success('Your information submitted successfully!')
         # Here you would add the analysis logic and results
         analysis_results = "Here you will have the analysis results from the ML model."
+        #display the result from the analysis made on the scanner page
+        st.write(f"Analysis results: {analysis_results}")
+
+
 
         # Optionally, display the analysis results on the Scanner page
-        st.write(f"Analysis results for {name}: {analysis_results}")
+        #st.write(f"Analysis results for {name}: {analysis_results}")
 
         # Save the user information to a file (if needed)
         with open('user_info.txt', 'w') as f:
